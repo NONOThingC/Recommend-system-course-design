@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/static/css/aos.css">
+
+    <link rel="stylesheet" href="/static/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="/static/css/flaticon.css">
+    <link rel="stylesheet" href="/static/css/icomoon.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    
+	  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar"><!--ftco_navbar -->
+	    <div class="container">
+	      <a class="navbar-brand" href="/index.html">Movie</a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="/index.html" class="nav-link">主页</a></li>
+	          <li class="nav-item active"><a href="/places.html/1/top" class="nav-link">排行</a></li>
+	          {% if request.session.is_login %}
+				{% if request.session.is_admin %}
+					<li class="nav-item"><a href="/admin_home.html/1" class="nav-link">当前在线：{{ request.session.user_name }}</a></li>
+                  <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+				{% else %}
+                  <li class="nav-item"><a href="/home.html/1" class="nav-link">当前在线：{{ request.session.user_name }}</a></li>
+                  <li class="nav-item"><a href="/change.html" class="nav-link">更改密码</a></li>
+                  <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+				{% endif %}
+              {% else %}
+                  <li class="nav-item"><a href="/contact.html" class="nav-link">登录</a></li>
+                  <li class="nav-item"><a href="/register.html" class="nav-link">注册</a></li>
+              {% endif %}
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+    
+    <div class="hero-wrap js-fullheight" style="background-image: url('/static/cover/封面.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+          <div class="col-md-9 text-center"><!-- ftco-animate-->
+            <h1>{{type}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+		
+		<section class="ftco-section">
+      <div class="container">
+        <div class="row">
+        	<div class="col-lg-3 sidebar order-md-last"><!-- ftco-animate-->
+        		<div class="sidebar-wrap"><!-- ftco-animate-->
+        			<h3 class="heading mb-4">高级搜索</h3>
+					{% if login_message %}
+                  <div class="alert alert-warning">{{ login_message }}</div>
+              		{% endif %}
+        			<form action="#" method="post">
+						{% csrf_token %}
+        				<div class="fields">
+		              <div class="form-group">
+		                <div class="select-wrap one-third">
+	                    <select name="order" id="" class="form-control">
+							<option  selected:disabled value="{{request.session.order}}" style="display:none">{{request.session.order}}</option>
+							<option value="默认排序">默认排序</option>
+	                      <option value="收藏数">收藏数</option>
+	                      <option value="时间">时间</option>
+	                    </select>
+						</div>
+		              </div>
+		              <div class="form-group">
+		                <div class="select-wrap one-third">
+	                    <select name="way" id="" class="form-control">
+							<option value="{{request.session.way}}" selected:disabled style="display:none">{{request.session.way}}</option>
+	                      <option value="升序">升序</option>
+	                      <option value="降序">降序</option>
+	                    </select>
+	                  </div>
+		              </div>
+		              <div class="form-group">
+		                <input type="text" id="checkin_date" class="form-control checkin_date" name="date_from" placeholder="Date from">
+		              </div>
+		              <div class="form-group">
+		                <input type="text" id="checkout_date" class="form-control checkout_date" name="date_to" placeholder="Date to">
+		              </div>
+		              <div class="form-group">
+		                <input type="submit" value="确定" class="btn btn-primary py-3 px-5">
+		              </div>
+		            </div>
+	            </form>
+        		</div>
+
+          </div><!-- END-->
+          <div class="col-lg-9">
+			  {% if message %}
+			  <h3 style="margin-bottom:500px">{{message}}</h3>
+			  {% else %}
+			  		<h3 style="margin-bottom:40px">共有{{movie_num}}条搜索结果</h3>
+              {% endif %}
+          	<div class="row">
+				{% for good in page.object_list %}
+          		<div class="col-sm col-md-9 col-lg-4"><!-- ftco-animate-->
+		    				<div class="destination">
+		    					<a href="/search_result.html/1/{{good.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{good.name}}.jpg');">
+		    					</a>
+		    					<div class="text p-3">
+									<h3><a href="/search_result.html/1/{{good.name}}"><font color="black">{{good.name}}</font></a></h3>
+    								<h6><font color="black">导演：{{good.director}}</font></h6>
+    								<h6><font color="black">演员：{{good.actors}}</font></h6>
+		    					</div>
+		    				</div>
+		    			</div>
+				{% endfor %}
+          	</div>
+          	<div class="row mt-5">
+		          <div class="col text-center">
+					  <div class="block-27">
+						  <ul>
+							  {% if page.has_previous %}
+							  <li>
+								  {# 点击a标签，跳转到上一页链接 ?index  为地址后面拼接的参数 #}
+								  <a href="?index={{page.previous_page_number}}">&lt;</a>
+							  </li>
+							  {% else %}
+							  {# 如果没有上一页， 则上一页按钮不可点击 #}
+							  <li class="disabled">
+								  <a href="#">&lt;</a>
+							  </li>
+							  {% endif %}
+							  {% for page_number in pagerange %}
+							  {# 获取当前页的页码 #}
+							  {% if page_number == page.number %}
+							  {# 如果是当前页的话，选中 #}
+							  <li class="active">
+								  <a href="?index={{page_number}}">{{page_number}}</a>
+							  </li>
+							  {% else %}
+							  <li>
+								  <a href="?index={{page_number}}">{{page_number}}</a>
+							  </li>
+							  {% endif %}
+							  {% endfor %}
+							  {% if page.has_next %}
+							  <li>
+								  <a href="?index={{page.next_page_number}}">&gt;</a>
+							  </li>
+							  {% else %}
+							  <li class="disabled">
+								  <a href="#">&gt;</a>
+							  </li>
+							  {% endif %}
+		              </ul>
+		            </div>
+		          </div>
+		        </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <script src="/static/js/jquery.waypoints.min.js"></script>
+  <script src="/static/js/jquery.stellar.min.js"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script src="/static/js/jquery.magnific-popup.min.js"></script>
+  <script src="/static/js/aos.js"></script>
+  <script src="/static/js/jquery.animateNumber.min.js"></script>
+  <script src="/static/js/bootstrap-datepicker.js"></script>
+  <script src="/static/js/jquery.timepicker.min.js"></script>
+  <script src="/static/js/scrollax.min.js"></script>
+
+  <script src="/static/js/google-map.js"></script>
+  <script src="/static/js/main.js"></script>
+    
+  </body>
+</html>

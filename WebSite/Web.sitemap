@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="x" title="学生登陆"  description="">
+        <siteMapNode url="score.aspx" title="学生成绩"  description="" />
+        <siteMapNode url="Login.aspx" title="更改个人信息"  description="" />
+    </siteMapNode>
+</siteMap>

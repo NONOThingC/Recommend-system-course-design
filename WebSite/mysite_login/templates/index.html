@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="utf-8">
+	<!-- viewport用于移动端显示优化  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <!-- open-iconic-bootstrap.min.css是一种开源图标，包含SVG、网页字体和图标集223种  -->
+    <link rel="stylesheet" href="/static/css/open-iconic-bootstrap.min.css">
+    <!-- animate.css是一个动画库，用于主页切换图片显示等等  -->
+    <link rel="stylesheet" href="/static/css/animate.css">
+
+    <!-- owl.carousel.min.css和owl.theme.default.min.css是幻灯片插件  -->
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <!-- Magnific Popup 是一个非常优秀的弹出对话框或者灯箱效果插件  -->
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+
+    <!-- aos.css是一个页面滚动动画库，如缩放动画、淡入淡出动画等  -->
+    <link rel="stylesheet" href="/static/css/aos.css">
+
+    <!-- ionicons.min.css是个图标库  -->
+    <link rel="stylesheet" href="/static/css/ionicons.min.css">
+
+    <!-- bootstrap-datepicker.css是一个日期选择器，jquery.timepicker.css是一个时间选择器  -->
+    <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/css/jquery.timepicker.css">
+
+    <!-- flaticon.css是个图标库，icomoon.css也是一个字体图标库  -->
+    <link rel="stylesheet" href="/static/css/flaticon.css">
+    <link rel="stylesheet" href="/static/css/icomoon.css">
+    <!-- style.css是一个样式表  -->
+    <link rel="stylesheet" href="/static/css/style.css">
+	 <link rel="stylesheet" href="/static/css/reset.css">
+  </head>
+  <body>
+      <!--class 属性大多数时候用于指向样式表中的类（class）。不过，也可以利用它通过 JavaScript 来改变带有指定 class 的 HTML 元素-->
+      <!--navbar-expand-lg是为了将导航栏展开，之后的几个是设置字颜色和背景颜色，具体的未搞懂-->
+	  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar"><!--ftco_navbar -->
+        <!--class="container"是对css样式表中container样式的引用-->
+	    <div class="container">
+          <!--class="navbar-brand"是对css样式表中navbar-brand样式的引用-->
+	      <a class="navbar-brand" href="index.html">Movie</a>
+          <!--data-toggle="collapse"  data-target="#ftco-nav"自动分配可折叠的元素控制  aria-controls该属性定义了元素间不能通过文档结构决定的关联关系（未理解）  aria-label当焦点落到该输入框时，读屏软件就会读出aria-label里的内容-->
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item active"><a href="/index.html" class="nav-link">主页</a></li>
+	          <li class="nav-item"><a href="/places.html/1/top" class="nav-link">排行</a></li>
+				{% if request.session.is_login %}
+				{% if request.session.is_admin %}
+					<li class="nav-item"><a href="/admin_home.html/1" class="nav-link">当前在线：{{ request.session.user_name }}</a></li>
+                  <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+				{% else %}
+                  <li class="nav-item"><a href="/home.html/1" class="nav-link">当前在线：{{ request.session.user_name }}</a></li>
+                  <li class="nav-item"><a href="/change.html" class="nav-link">更改密码</a></li>
+                  <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+				{% endif %}
+              {% else %}
+                  <li class="nav-item"><a href="/contact.html" class="nav-link">登录</a></li>
+                  <li class="nav-item"><a href="/register.html" class="nav-link">注册</a></li>
+              {% endif %}
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+    
+    <div class="hero-wrap js-fullheight" style="background-image: url('/static/cover/封面.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start">
+          <div class="col-md-9 mb-5 pb-5 text-center text-md-left"><!-- ftco-animate-->
+			<!--<h1> - <h6> 标签可定义标题   <p> 标签定义段落-->
+            <h1 class="mb-4">电影推荐 <br></h1>
+            <p style="position:relative;left:100px">找到一部适合你的电影</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+	<!--<section> 标签定义文档中的节（section、区段）-->
+    <section><!-- class="ftco-section justify-content-end ftco-search"-->
+    	<div class="ml-auto"><!--container-wrap -->
+    		<div class="row no-gutters">
+
+		  <!--col-md-12是设置面板区的宽度-->
+          <div class="col-md-12 tab-wrap">
+            <!--tab-content代表接下来标签内的内容为面板区   p-4是设置面板区的上下位置  px-5意义不明-->
+            <div class="tab-content p-4 px-5" id="v-pills-tabContent">
+			  <!--此处的id="v-pills-1"与上面标签中的href="#v-pills-1"相对应，代表点了上面的超链接，会进入对应的以下标签中-->
+              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
+				<!--<form> 标签用于为用户输入创建 HTML 表单  action规定当提交表单时向何处发送表单数据-->
+              	<form action="/places.html/3/搜索结果" method="post" class="search-destination">
+					{% csrf_token %}
+              		<div class="row">
+						<!--col-md是设置 HTML 表单中每一项的宽度（即input元素的宽度）-->
+						<div class="col-md align-items-end">
+              				<div class="form-group">
+              					<label for="#">搜索分类</label>
+              					<div class="form-field">
+	              					<div class="select-wrap">
+			                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+			                      <select name="choice" id="" class="form-control">
+			                      	<option value="name">电影名</option>
+			                        <option value="type">电影类型</option>
+			                        <option value="director">电影导演</option>
+			                        <option value="actor">电影演员</option>
+			                      </select>
+			                    </div>
+					              </div>
+				              </div>
+              			</div>
+              			<div class="col-md align-items-end">
+              				<div class="form-group">
+								<!--<label> 标签为 input 元素定义标注（标记） <label> 标签的 for 属性应当与相关元素的 id 属性相同，规定 label 绑定到哪个表单元素-->
+              					<label for="#">搜索内容</label>
+	              				<div class="form-field">
+									<!--下句是引用一个logo-->
+	              					<div class="icon"><span class="icon-my_location"></span></div>
+									<!--这个input元素是输入框形式，placeholder是设置在输入框中的背景字-->
+					                <input type="text" class="form-control" name="content" placeholder="请输入搜索内容">
+					              </div>
+				              </div>
+              			</div>
+
+              			<div class="col-md align-self-end">
+              				<div class="form-group">
+              					<div class="form-field">
+									<!--type="submit"此处的input元素为提交按钮，提交过后，数据以何种形式存在并且如何区分表中的各项数据？？？？？-->
+					                <input type="submit" value="搜索" class="form-control btn btn-primary">
+					              </div>
+				              </div>
+              			</div>
+              		</div>
+              	</form>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+    	</div>
+    </section>
+
+
+	<section class="ftco-section" style="background-color:#B0C4DE">
+      <div class="container">
+		  {% if request.session.is_login %}
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 text-center heading-section heading-section-white"><!-- ftco-animate-->
+            <h2 class="mb-4">猜您喜欢</h2>
+          </div>
+        </div>
+        <div class="row"><!-- ftco-animate-->
+          <div class="col-md-12">
+            <div class="carousel-testimony owl-carousel ftco-owl" id="owl-example">
+				{% for movie in recommend_list %}
+              <div class="item">
+				<!--p-4控制上下位置，pb-5控制上下高度-->
+				  <a href="/search_result.html/1/{{movie.name}}"><img src="/static/cover/{{movie.name}}.jpg" height="300" width="130"/></a>
+                <div class="p-4 pb-5">
+                  <div class="text">
+                    <p style="color:black;font-size:20px">{{movie.name}}</p>
+                    <p style="color:black;font-size:15px">{{movie.type}}</p>
+                  </div>
+                </div>
+              </div>
+				{% endfor %}
+            </div>
+				<!--</div>-->
+          </div>
+        </div>
+		  {% else %}
+		  <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 text-center heading-section heading-section-white"><!-- ftco-animate-->
+            <h3>登陆后便可为您进行个性化推荐</h3>
+          </div>
+        </div>
+		  {% endif %}
+      </div>
+    </section>
+
+
+
+    <section>
+    	<div class="container">
+				<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center"><!-- ftco-animate-->
+            <h2><a href="/places.html/2/剧情">剧  情</a></h2>
+          </div>
+        </div>    		
+    	</div>
+    	<div class="container-fluid">
+    		<div class="row">
+				{% for movie in movie_feature %}
+    			<div class="col-sm col-md-6 col-lg"><!-- ftco-animate-->
+    				<div class="destination">
+    					<a href="/search_result.html/1/{{movie.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{movie.name}}.jpg');">
+    					</a>
+    					<div class="text p-3">
+							<h3><a href="/search_result.html/1/{{movie.name}}"><font color="black">{{movie.name}}</font></a></h3>
+    						<h6><font color="black">导演：{{movie.director}}</font></h6>
+    						<h6><font color="black">演员：{{movie.actors}}</font></h6>
+    					</div>
+    				</div>
+    			</div>
+				{% endfor %}
+
+    		</div>
+    	</div>
+    </section>
+
+
+	  <section>
+    	<div class="container">
+				<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center">
+			  <h2><a href="/places.html/2/动作">动  作</a></h2>
+          </div>
+        </div>
+    	</div>
+    	<div class="container-fluid">
+    		<div class="row">
+				{% for movie in movie_act %}
+    			<div class="col-sm col-md-6 col-lg">
+    				<div class="destination">
+    					<a href="/search_result.html/1/{{movie.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{movie.name}}.jpg');">
+    					</a>
+    					<div class="text p-3">
+    						<h3><a href="/search_result.html/1/{{movie.name}}"><font color="black">{{movie.name}}</font></a></h3>
+    						<h6><font color="black">导演：{{movie.director}}</font></h6>
+    						<h6><font color="black">演员：{{movie.actors}}</font></h6>
+    					</div>
+    				</div>
+    			</div>
+				{% endfor %}
+    		</div>
+    	</div>
+    </section>
+
+	  <section>
+    	<div class="container">
+				<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center">
+			  <h2><a href="/places.html/2/科幻">科  幻</a></h2>
+          </div>
+        </div>
+    	</div>
+    	<div class="container-fluid">
+    		<div class="row">
+				{% for movie in movie_science %}
+    			<div class="col-sm col-md-6 col-lg">
+    				<div class="destination">
+    					<a href="/search_result.html/1/{{movie.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{movie.name}}.jpg');">
+    					</a>
+    					<div class="text p-3">
+    						<h3><a href="/search_result.html/1/{{movie.name}}"><font color="black">{{movie.name}}</font></a></h3>
+    						<h6><font color="black">导演：{{movie.director}}</font></h6>
+    						<h6><font color="black">演员：{{movie.actors}}</font></h6>
+    					</div>
+    				</div>
+    			</div>
+				{% endfor %}
+    		</div>
+    	</div>
+    </section>
+
+	  <section>
+    	<div class="container">
+				<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center">
+			  <h2><a href="/places.html/2/惊悚">惊  悚</a></h2>
+          </div>
+        </div>
+    	</div>
+    	<div class="container-fluid">
+    		<div class="row">
+				{% for movie in movie_panic %}
+    			<div class="col-sm col-md-6 col-lg">
+    				<div class="destination">
+    					<a href="/search_result.html/1/{{movie.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{movie.name}}.jpg');">
+    					</a>
+    					<div class="text p-3">
+    						<h3><a href="/search_result.html/1/{{movie.name}}"><font color="black">{{movie.name}}</font></a></h3>
+    						<h6><font color="black">导演：{{movie.director}}</font></h6>
+    						<h6><font color="black">演员：{{movie.actors}}</font></h6>
+    					</div>
+    				</div>
+    			</div>
+				{% endfor %}
+    		</div>
+    	</div>
+    </section>
+
+	  <section>
+    	<div class="container">
+				<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center">
+			  <h2><a href="/places.html/2/爱情">爱  情</a></h2>
+          </div>
+        </div>
+    	</div>
+    	<div class="container-fluid">
+    		<div class="row">
+				{% for movie in movie_love %}
+    			<div class="col-sm col-md-6 col-lg">
+    				<div class="destination">
+    					<a href="/search_result.html/1/{{movie.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{movie.name}}.jpg');">
+    					</a>
+    					<div class="text p-3">
+    						<h3><a href="/search_result.html/1/{{movie.name}}"><font color="black">{{movie.name}}</font></a></h3>
+    						<h6><font color="black">导演：{{movie.director}}</font></h6>
+    						<h6><font color="black">演员：{{movie.actors}}</font></h6>
+    					</div>
+    				</div>
+    			</div>
+				{% endfor %}
+    		</div>
+    	</div>
+    </section>
+
+	  <section>
+    	<div class="container">
+				<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center">
+			  <h2><a href="places.html/2/恐怖">恐  怖</a></h2>
+          </div>
+        </div>
+    	</div>
+    	<div class="container-fluid">
+    		<div class="row">
+				{% for movie in movie_horrible %}
+    			<div class="col-sm col-md-6 col-lg">
+    				<div class="destination">
+    					<a href="search_result.html/1/{{movie.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{movie.name}}.jpg');">
+    					</a>
+    					<div class="text p-3">
+    						<h3><a href="/search_result.html/1/{{movie.name}}"><font color="black">{{movie.name}}</font></a></h3>
+    						<h6><font color="black">导演：{{movie.director}}</font></h6>
+    						<h6><font color="black">演员：{{movie.actors}}</font></h6>
+    					</div>
+    				</div>
+    			</div>
+				{% endfor %}
+    		</div>
+    	</div>
+    </section>
+
+	  <section>
+    	<div class="container">
+				<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center">
+			  <h2><a href="places.html/2/喜剧">喜  剧</a></h2>
+          </div>
+        </div>
+    	</div>
+    	<div class="container-fluid">
+    		<div class="row">
+				{% for movie in movie_comedy %}
+    			<div class="col-sm col-md-6 col-lg">
+    				<div class="destination">
+    					<a href="search_result.html/1/{{movie.name}}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/cover/{{movie.name}}.jpg');">
+    					</a>
+    					<div class="text p-3">
+    						<h3><a href="/search_result.html/1/{{movie.name}}"><font color="black">{{movie.name}}</font></a></h3>
+    						<h6><font color="black">导演：{{movie.director}}</font></h6>
+    						<h6><font color="black">演员：{{movie.actors}}</font></h6>
+    					</div>
+    				</div>
+    			</div>
+				{% endfor %}
+    		</div>
+    	</div>
+    </section>
+
+
+  <div id="ftco-loader" class="show fullscreen">
+	  <svg class="circular" width="48px" height="48px">
+		  <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+		  <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+	  </svg>
+  </div>
+
+
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <script src="/static/js/jquery.waypoints.min.js"></script>
+  <script src="/static/js/jquery.stellar.min.js"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script src="/static/js/jquery.magnific-popup.min.js"></script>
+  <script src="/static/js/aos.js"></script>
+  <script src="/static/js/jquery.animateNumber.min.js"></script>
+  <script src="/static/js/bootstrap-datepicker.js"></script>
+  <script src="/static/js/jquery.timepicker.min.js"></script>
+  <script src="/static/js/scrollax.min.js"></script>
+
+  <script src="/static/js/google-map.js"></script>
+  <script src="/static/js/main.js"></script>
+    
+  </body>
+</html>

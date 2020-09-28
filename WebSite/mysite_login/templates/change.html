@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/static/css/aos.css">
+
+    <link rel="stylesheet" href="/static/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="/static/css/flaticon.css">
+    <link rel="stylesheet" href="/static/css/icomoon.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+
+	  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar"><!--ftco_navbar -->
+	    <div class="container">
+	      <a class="navbar-brand" href="/index.html">Movie</a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="/index.html" class="nav-link">主页</a></li>
+	          <li class="nav-item"><a href="/places.html/1/top" class="nav-link">排行</a></li>
+	          {% if request.session.is_login %}
+              {% if request.session.is_admin %}
+					<li class="nav-item"><a href="/admin_home.html/1" class="nav-link">当前在线：{{ request.session.user_name }}</a></li>
+                  <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+				{% else %}
+                  <li class="nav-item"><a href="/home.html/1" class="nav-link">当前在线：{{ request.session.user_name }}</a></li>
+                  <li class="nav-item active"><a href="/change.html" class="nav-link">更改密码</a></li>
+                  <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+              {% endif %}
+              {% else %}
+                  <li class="nav-item"><a href="/contact.html" class="nav-link">登录</a></li>
+                  <li class="nav-item"><a href="/register.html" class="nav-link">注册</a></li>
+              {% endif %}
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+
+    <div class="hero-wrap js-fullheight" style="background-image: url('/static/cover/封面.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+          <div class="col-md-9 text-center"><!-- ftco-animate-->
+            <h1>修改密码</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<section class="ftco-section contact-section ftco-degree-bg">
+      <div class="container">
+        <div class="row block-9">
+          <div class="col-md-6" style="position:relative;top:100px"><h2>请修改您的密码</h2></div>
+          <div class="col-md-6 order-md-last pr-md-5">
+            <form action="#" method="post">
+              {% if message %}
+                  <div class="alert alert-warning">{{ message }}</div>
+              {% endif %}
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="旧密码" name="password">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="新密码" name="password1">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="确认密码" name="password2">
+              </div>
+              <div class="form-group">
+                <input type="submit" value="确认修改" class="btn btn-primary pull-left py-3 px-5">
+                <input type="reset" value="重置" class="btn btn-default pull-right py-3 px-5">
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <script src="/static/js/jquery.waypoints.min.js"></script>
+  <script src="/static/js/jquery.stellar.min.js"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script src="/static/js/jquery.magnific-popup.min.js"></script>
+  <script src="/static/js/aos.js"></script>
+  <script src="/static/js/jquery.animateNumber.min.js"></script>
+  <script src="/static/js/bootstrap-datepicker.js"></script>
+  <script src="/static/js/jquery.timepicker.min.js"></script>
+  <script src="/static/js/scrollax.min.js"></script>
+
+  <script src="/static/js/google-map.js"></script>
+  <script src="/static/js/main.js"></script>
+
+  </body>
+</html>
